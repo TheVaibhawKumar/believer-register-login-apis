@@ -11,7 +11,13 @@ dotenv.config();
 const app = express();
 app.use(helmet());
 app.use(cors());
+
+// 👇 Add this line to support form data (x-www-form-urlencoded)
+app.use(express.urlencoded({ extended: true }));
+
+// Already present for JSON
 app.use(express.json());
+
 app.use(apiLimiter);
 
 app.use("/api/auth", authRoutes);
