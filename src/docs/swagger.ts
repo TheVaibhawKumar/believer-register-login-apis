@@ -1,23 +1,12 @@
-import swaggerUi from "swagger-ui-express";
-import swaggerJSDoc from "swagger-jsdoc";
-import { Express } from "express";
-import path from "path";
-
-const options = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Believer Auth APIs",
-      version: "1.0.0",
-      description: "Register & Login APIs",
-    },
-    servers: [{ url: "http://localhost:4000" }],
-  },
-  apis: [path.join(__dirname, "..", "routes", "*.ts")],
-};
-
-const spec = swaggerJSDoc(options);
+import swaggerUi from 'swagger-ui-express';
+import fs from 'fs';
+import path from 'path';
+import yaml from 'yaml';
+import { Express } from 'express';
 
 export const setupSwagger = (app: Express) => {
-  app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(spec));
+  const file = fs.readFileSync(path.join(__dirname, 'swagger.yaml'), 'utf8');
+  const swaggerDocument = yaml.parse(file);
+
+  app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 };
