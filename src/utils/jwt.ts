@@ -1,15 +1,18 @@
-import jwt from "jsonwebtoken";
+import jwt, { Secret, SignOptions } from "jsonwebtoken";
+import ms from "ms"; // comes with types for StringValue
 
-const SECRET = process.env.JWT_SECRET || "change_this_secret";
-const EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1h";
-export const signJwt = (payload: object) => {
-  return jwt.sign(payload, SECRET, { expiresIn: EXPIRES_IN });
+const SECRET: Secret = process.env.JWT_SECRET || "change_this_secret";
+const EXPIRES_IN: ms.StringValue = (process.env.JWT_EXPIRES_IN as ms.StringValue) || "1h";
+
+export const signJwt = (payload: object): string => {
+  const options: SignOptions = { expiresIn: EXPIRES_IN };
+  return jwt.sign(payload, SECRET, options);
 };
 
-export const verifyJwt = (token: string) => {
+export const verifyJwt = (token: string): object | null => {
   try {
-    return jwt.verify(token, SECRET);
-  } catch (err) {
+    return jwt.verify(token, SECRET) as object;
+  } catch {
     return null;
   }
 };

@@ -14,8 +14,8 @@ router.post(
   [
     body("name").isString().trim().isLength({ min: 2 }),
     body("email").isEmail().normalizeEmail(),
-    body("phone").optional().isMobilePhone("any"),
-    body("password").isLength({ min: 8 }),
+    body("phone").optional().isLength({ min: 10, max: 10 }),
+    body("password").isLength({ min: 6 }), // instead of 8
   ],
   validateRequest,
   register
