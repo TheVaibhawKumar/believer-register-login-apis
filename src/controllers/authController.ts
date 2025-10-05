@@ -16,8 +16,7 @@ export const register = async (req: Request, res: Response) => {
     await user.save();
 
     const token = signJwt({ id: user._id, email: user.email });
-    return res
-      .status(201)
+    return res.status(201)
       .json({
         user: { id: user._id, name: user.name, email: user.email },
         token,
