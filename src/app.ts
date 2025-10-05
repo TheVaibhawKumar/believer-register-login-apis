@@ -13,11 +13,9 @@ app.use(helmet());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-// Already present for JSON
+
 app.use(express.json());
-
 app.use(apiLimiter);
-
 app.use("/api/auth", authRoutes);
 setupSwagger(app);
 
