@@ -32,10 +32,8 @@ export const login = async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({ email });
     if (!user) return res.status(401).json({ message: "Invalid credentials" });
-
     const ok = await bcrypt.compare(password, user.password);
     if (!ok) return res.status(401).json({ message: "Invalid credentials" });
-
     const token = signJwt({ id: user._id, email: user.email });
     return res.json({
       user: { id: user._id, name: user.name, email: user.email },
