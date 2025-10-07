@@ -17,7 +17,6 @@ app.use(express.json());
 app.use(apiLimiter);
 app.use("/api/auth", authRoutes);
 setupSwagger(app);
-
 app.get("/", (req, res) => res.json({ status: "ok" }));
 
 export default app;
