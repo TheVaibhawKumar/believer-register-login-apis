@@ -7,6 +7,7 @@ const SALT_ROUNDS = 10;
 
 export const register = async (req: Request, res: Response) => {
   const { name, email, phone, password } = req.body;
+  
   try {
     const existing = await User.findOne({ email });
     if (existing)
