@@ -30,7 +30,7 @@ paths:
               required:
                 - name
                 - email
-                - password
+                - password 
               properties:
                 name:
                   type: string
